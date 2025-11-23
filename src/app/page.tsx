@@ -1,24 +1,17 @@
-"use client";
+import { requireAuth } from "@/lib/auth-utils";
+import { caller } from "@/trpc/server";
+import { LogoutButton } from "./logout";
 
-import { Suspense } from "react";
-import { getQueryClient, trpc } from "@/trpc/server";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { Client } from "./client";
-
-// leveraging prefetch in server comp & populating tanstack query client state (to start fetching faster & earlier, the client comp will be populated by server comp)
 const Page = async () => {
-  const queryClient = getQueryClient();
+  await requireAuth();
 
-  void queryClient.prefetchQuery(trpc.getUsers.queryOptions());
+  const data = await caller.getUsers();
 
   return (
-    <div className="text-3xl h-full min-h-screen min-w-screen flex items-center justify-center">
-      FlowForge Studio
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<p>loading...</p>}>
-          <Client />
-        </Suspense>
-      </HydrationBoundary>
+    <div className="flex-col gap-y-6 text-3xl h-full min-h-screen min-w-screen flex items-center justify-center">
+      protected server component test
+      <div>{JSON.stringify(data, null, 2)}</div>
+      <LogoutButton />
     </div>
   );
 };
@@ -26,6 +19,26 @@ const Page = async () => {
 export default Page;
 
 /*
+// auth session test
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+
+const Page = () => {
+  const { data } = authClient.useSession();
+
+  return (
+    <div className="text-3xl h-full min-h-screen min-w-screen flex items-center justify-center">
+      {JSON.stringify(data)}
+      {data && <Button onClick={() => authClient.signOut()}>Logout</Button>}
+    </div>
+  );
+};
+
+export default Page;
+
+
 // client usage ex.
 "use client";
 
