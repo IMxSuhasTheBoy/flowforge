@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+npx inngest-cli@latest dev
+npx prisma studio
+npx prisma migrate dev
+npx prisma generate
+
 First, run the development server:
 
 ```bash

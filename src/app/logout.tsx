@@ -6,5 +6,5 @@ import { authClient } from "@/lib/auth-client";
 import React from "react";
 
 export const LogoutButton = () => {
-  return <Button onClick={() => authClient.signOut()}>LogiutButton</Button>;
+  return <Button onClick={() => authClient.signOut()}>LogoutButton</Button>;
 };
