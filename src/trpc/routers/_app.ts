@@ -1,14 +1,21 @@
 import { inngest } from "@/inngest/client";
 import { baseProcedure, createTRPCRouter, protectedProcedure } from "../init";
 import prisma from "@/lib/db";
+import { TRPCError } from "@trpc/server";
 
 export const appRouter = createTRPCRouter({
   testAi: baseProcedure.mutation(async () => {
+    // demo error
+    // throw new TRPCError({
+    //   code: "BAD_REQUEST",
+    //   message: "something went wrong!",
+    // });
+
     await inngest.send({
       name: "execute/ai",
     });
 
-    return { sucess: true, message: "Queued Background job" };
+    return { success: true, message: "Queued Background job" };
   }),
 
   getWorkflows: protectedProcedure.query(({ ctx }) => {
@@ -23,7 +30,7 @@ export const appRouter = createTRPCRouter({
     });
     // await new Promise((resolve) => setTimeout(resolve, 5_000));
 
-    return { sucess: true, message: "Queued Background job" };
+    return { success: true, message: "Queued Background job" };
   }),
 });
 // export type definition of API
