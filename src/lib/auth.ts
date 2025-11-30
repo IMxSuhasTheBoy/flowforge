@@ -1,6 +1,14 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { polarClient } from "./polar";
 import prisma from "@/lib/db";
+import {
+  polar,
+  checkout,
+  portal,
+  usage,
+  webhooks,
+} from "@polar-sh/better-auth";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -10,4 +18,24 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true,
   },
+  plugins: [
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          products: [
+            {
+              productId: "d63009cf-7938-4447-bd02-6985517d7e4d", // ID of Product from Polar Dashboard
+              slug: "pro", // Custom slug for easy reference in Checkout URL, e.g. /checkout/FlowForge-Pro
+            },
+          ],
+          successUrl: process.env.POLAR_SUCCESS_URL,
+          authenticatedUsersOnly: true,
+        }),
+        portal(),
+      ],
+    }),
+  ],
 });
+// https://polar.sh/docs/integrate/sdk/adapters/better-auth
