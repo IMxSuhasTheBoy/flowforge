@@ -26,7 +26,7 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "d63009cf-7938-4447-bd02-6985517d7e4d", // ID of Product from Polar Dashboard
+              productId: process.env.POLAR_PRODUCT_ID!, // ID of Product from Polar Dashboard
               slug: "pro", // Custom slug for easy reference in Checkout URL, e.g. /checkout/FlowForge-Pro
             },
           ],

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 import { usePathname, useRouter } from "next/navigation";
 import {
   CreditCardIcon,
@@ -22,7 +23,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { authClient } from "@/lib/auth-client";
 import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 const menuItems = [
