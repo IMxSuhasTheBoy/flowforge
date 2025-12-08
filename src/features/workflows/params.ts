@@ -18,3 +18,9 @@ export const workflowsParams = {
 // search cleared
 //http://localhost:3000/workflows?search= *
 //http://localhost:3000/workflows
+
+// clearOnDefault behavior examples:
+// When page=1 (default): /workflows (not /workflows?page=1)
+// When page=2: /workflows?page=2
+// When search="" (default): /workflows (not /workflows?search=)
+// When search="test": /workflows?search=test
