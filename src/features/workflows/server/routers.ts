@@ -1,12 +1,12 @@
 import z from "zod";
 import { generateSlug } from "random-word-slugs";
 import prisma from "@/lib/db";
+import { PAGINATION } from "@/config/constants";
 import {
   createTRPCRouter,
   premiumProcedure,
   protectedProcedure,
 } from "@/trpc/init";
-import { PAGINATION } from "@/config/constants";
 
 export const workflowsRouter = createTRPCRouter({
   create: premiumProcedure.mutation(({ ctx }) => {
