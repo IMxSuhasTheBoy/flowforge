@@ -22,6 +22,7 @@ export const trpc = createTRPCOptionsProxy({
 // we use caller instance of trpc for the server comp.
 // this allows us to call the trpc data access layer through a server comp.
 // this server caller also preserves the auth session
+// its not returning any value, but populating the cache
 export const caller = appRouter.createCaller(createTRPCContext);
 export function prefetch<T extends ReturnType<TRPCQueryOptions<any>>>(
   queryOptions: T

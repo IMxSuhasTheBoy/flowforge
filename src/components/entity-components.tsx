@@ -256,7 +256,7 @@ interface EntityItemProps {
   actions?: React.ReactNode;
   subtitle?: React.ReactNode;
   onRemove?: () => void | Promise<void>;
-  isRemoving?: Boolean;
+  isRemoving?: boolean;
   className?: string;
 }
 

@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import type { Workflow } from "@/generated/prisma/browser"; // as WorkFlowType
 import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
 import { useEntitySearch } from "@/hooks/use-entity-search";
-import { useWorkflowsParams } from "../server/hooks/use-workflows-params";
+import { useWorkflowsParams } from "../hooks/use-workflows-params";
 import {
   useCreateWorkflow,
   useRemoveWorkflow,
   useSuspenseWorkflows,
-} from "../server/hooks/use-workflows";
+} from "../hooks/use-workflows";
 import {
   EntityContainer,
   EntityHeader,
