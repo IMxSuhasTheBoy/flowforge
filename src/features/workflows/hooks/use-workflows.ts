@@ -35,7 +35,7 @@ export const useCreateWorkflow = () => {
         );
       },
       onError: (error) => {
-        toast.error(`Failed to update workflow: ${error.message}`);
+        toast.error(`Failed to create workflow: ${error.message}`);
       },
     })
   );
