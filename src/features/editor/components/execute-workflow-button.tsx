@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { FlaskConicalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useExecuteWorkflow } from "@/features/workflows/hooks/use-workflows";
@@ -11,6 +12,17 @@ export const ExecuteWorkflowButton = ({
 
   const handleExecute = () => {
     executeWorkflow.mutate({ id: workflowId });
+    executeWorkflow.mutate(
+      { id: workflowId },
+      {
+        onSuccess: () => {
+          toast.success("Workflow execution started");
+        },
+        onError: (error) => {
+          toast.error("Failed to execute workflow");
+        },
+      }
+    );
   };
 
   return (

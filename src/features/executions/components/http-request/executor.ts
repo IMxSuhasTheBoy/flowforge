@@ -4,8 +4,9 @@ import ky, { type Options as KyOptions } from "ky";
 
 // type HttpRequestData = Record<string, unknown>;
 type HttpRequestData = {
-  endpoint?: string;
-  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  variableName: string;
+  endpoint: string;
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 
@@ -22,20 +23,33 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     throw new NonRetriableError("HTTP Request node: No endpoint configured");
   }
 
+  if (!data.variableName) {
+    // TODO: Publish "error" state for http request
+    throw new NonRetriableError(
+      "HTTP Request node: Variable name not configured"
+    );
+  }
+
+  if (!data.method) {
+    // TODO: Publish "error" state for http request
+    throw new NonRetriableError("HTTP Request node: Method not configured");
+  }
+
   // doing request
   // const result = await step.fetch(data.endpoint);
   // const result = await step.run("http-request", async () => context);
 
   const result = await step.run("http-request", async () => {
-    const endpoint = data.endpoint!;
-    const method = data.method || "GET";
+    const endpoint = data.endpoint;
+    const method = data.method;
 
     const options: KyOptions = { method };
 
     if (["POST", "PUT", "PATCH"].includes(method)) {
       options.body = data.body;
-      // if (data.body) {
-      // }
+      options.headers = {
+        "Content-Type": "application/json",
+      };
     }
 
     const response = await ky(endpoint, options);
@@ -44,13 +58,17 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       ? await response.json()
       : await response.text();
 
-    return {
-      ...context,
+    const responsePayload = {
       httpResponse: {
         status: response.status,
         statusText: response.statusText,
         data: responseData,
       },
+    };
+
+    return {
+      ...context,
+      [data.variableName]: responsePayload,
     };
   });
 
