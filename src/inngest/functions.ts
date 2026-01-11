@@ -19,7 +19,7 @@ export const executeWorkflow = inngest.createFunction(
     const workflowId = event.data.workflowId;
 
     if (!workflowId) {
-      throw new NonRetriableError("Workflowflow ID is missing");
+      throw new NonRetriableError("Workflow ID is missing");
     }
 
     const sortedNodes = await step.run("prepare-workflow", async () => {

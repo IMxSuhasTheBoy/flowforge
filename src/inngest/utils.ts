@@ -5,7 +5,7 @@ export const topologicalSort = (
   nodes: Node[],
   connections: Connection[]
 ): Node[] => {
-  //  If no connections, return node as-is (they'ar all independent )
+  //  If no connections, return node as-is (they're all independent )
   if (connections.length === 0) {
     return nodes;
   }
@@ -29,7 +29,7 @@ export const topologicalSort = (
     }
   }
 
-  // Perform totoplogical sort
+  // Perform topological sort
   let sortedNodeIds: string[];
   try {
     sortedNodeIds = toposort(edges);
@@ -37,7 +37,7 @@ export const topologicalSort = (
     sortedNodeIds = [...new Set(sortedNodeIds)];
   } catch (error) {
     if (error instanceof Error && error.message.includes("Cyclic")) {
-      throw new Error("Workflow containes a cycle");
+      throw new Error("Workflow contains a cycle");
     }
 
     throw error;
