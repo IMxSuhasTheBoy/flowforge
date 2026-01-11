@@ -4,9 +4,9 @@ import ky, { type Options as KyOptions } from "ky";
 
 // type HttpRequestData = Record<string, unknown>;
 type HttpRequestData = {
-  variableName?: string;
-  endpoint?: string;
-  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  variableName: string;
+  endpoint: string;
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 
@@ -25,7 +25,14 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
 
   if (!data.variableName) {
     // TODO: Publish "error" state for http request
-    throw new NonRetriableError("Variable name not configured");
+    throw new NonRetriableError(
+      "HTTP Request node: Variable name not configured"
+    );
+  }
+
+  if (!data.method) {
+    // TODO: Publish "error" state for http request
+    throw new NonRetriableError("HTTP Request node: Method not configured");
   }
 
   // doing request
@@ -33,8 +40,8 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
   // const result = await step.run("http-request", async () => context);
 
   const result = await step.run("http-request", async () => {
-    const endpoint = data.endpoint!;
-    const method = data.method || "GET";
+    const endpoint = data.endpoint;
+    const method = data.method;
 
     const options: KyOptions = { method };
 
@@ -59,17 +66,9 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       },
     };
 
-    if (data.variableName) {
-      return {
-        ...context,
-        [data.variableName]: responsePayload,
-      };
-    }
-
     return {
-      // Fallback to direct httpResponse for backward compatibility
       ...context,
-      ...responsePayload,
+      [data.variableName]: responsePayload,
     };
   });
 
