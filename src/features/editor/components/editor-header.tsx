@@ -20,6 +20,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { editorAtom } from "../store/atoms";
+import { toast } from "sonner";
 
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
@@ -117,6 +118,7 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
 
   const handleSave = () => {
     if (!editor) {
+      toast.error("Editor is not ready yet");
       return;
     }
 
