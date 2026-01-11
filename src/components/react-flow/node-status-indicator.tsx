@@ -66,7 +66,14 @@ export const BorderLoadingIndicator = ({
             className
           )}
         >
-          <div className="spinner rounded-full bg-[conic-gradient(from_0deg_at_50%_50%,rgba(42,67,233,0.5)_0deg,rgba(42,138,246,0)_360deg)]" />
+          {/* <div className="spinner rounded-full bg-[conic-gradient(from_0deg_at_50%_50%,rgba(42,67,233,0.5)_0deg,rgba(42,138,246,0)_360deg)]" /> */}
+          <div
+            className="spinner rounded-full"
+            style={{
+              background:
+                "conic-gradient(from 0deg at 50% 50%, var(--status-loading-primary) 0deg, var(--status-loading-secondary) 360deg)",
+            }}
+          />
         </div>
       </div>
       {children}

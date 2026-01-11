@@ -61,6 +61,8 @@
   --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
   --tracking-normal: 0.025em;
   --spacing: 0.25rem;
+  --status-loading-primary: rgba(42, 67, 233, 0.5);
+  --status-loading-secondary: rgba(42, 138, 246, 0);
 }
 
 .dark {
