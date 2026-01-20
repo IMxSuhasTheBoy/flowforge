@@ -11,7 +11,6 @@ export const ExecuteWorkflowButton = ({
   const executeWorkflow = useExecuteWorkflow();
 
   const handleExecute = () => {
-    executeWorkflow.mutate({ id: workflowId });
     executeWorkflow.mutate(
       { id: workflowId },
       {
