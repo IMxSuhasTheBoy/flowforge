@@ -3,12 +3,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 npx inngest-cli@latest dev
-# .
+
 npx prisma studio
-# .
+
 npx prisma migrate dev
-# .
+
 npx prisma generate
+
+"ngrok:dev": "ngrok http --url=sloppy-proterandrous-catherin.ngrok-free.dev 3000",
 
 First, run the development server:
 

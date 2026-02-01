@@ -1,9 +1,12 @@
-import { topologicalSort } from "./utils";
 import { NonRetriableError } from "inngest";
 import prisma from "@/lib/db";
 import { NodeType } from "@/generated/prisma/enums";
 import { getExecutor } from "@/features/executions/lib/executor-registry";
 import { inngest } from "./client";
+import { topologicalSort } from "./utils";
+import { httpRequestChannel } from "./channels/http-request";
+import { manualTriggerChannel } from "./channels/manual-trigger";
+import { googleFormTriggerChannel } from "./channels/google-form-trigger";
 
 /*
   1. fetch the workflow that's been executed
@@ -13,9 +16,19 @@ import { inngest } from "./client";
 */
 
 export const executeWorkflow = inngest.createFunction(
-  { id: "execute-workflow" },
-  { event: "workflows/execute.workflow" },
-  async ({ event, step }) => {
+  {
+    id: "execute-workflow",
+    retries: 0, // TODO: Remove in production
+  },
+  {
+    event: "workflows/execute.workflow",
+    channels: [
+      httpRequestChannel(),
+      manualTriggerChannel(),
+      googleFormTriggerChannel(),
+    ],
+  },
+  async ({ event, step, publish }) => {
     const workflowId = event.data.workflowId;
 
     if (!workflowId) {
@@ -45,6 +58,7 @@ export const executeWorkflow = inngest.createFunction(
         nodeId: node.id,
         context,
         step,
+        publish,
       });
     }
 

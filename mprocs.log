@@ -1,0 +1,3 @@
+ERROR [portable_pty::win::psuedocon] CreateProcessW `"C:\\Users\\Admin\\AppData\\Roaming\\npm\\npm run ngrok:dev\0"` in cwd `Some("D:\\2025\\flowforge\0")` failed: %1 is not a valid Win32 application. (os error 193)
+ERROR [portable_pty::win::psuedocon] CreateProcessW `"C:\\Users\\Admin\\AppData\\Roaming\\npm\\npm run inngest:dev\0"` in cwd `Some("D:\\2025\\flowforge\0")` failed: %1 is not a valid Win32 application. (os error 193)
+ERROR [portable_pty::win::psuedocon] CreateProcessW `"C:\\Users\\Admin\\AppData\\Roaming\\npm\\npm run dev\0"` in cwd `Some("D:\\2025\\flowforge\0")` failed: %1 is not a valid Win32 application. (os error 193)
