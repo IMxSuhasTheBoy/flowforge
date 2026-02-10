@@ -5,12 +5,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 npx inngest-cli@latest dev
 
 npx prisma studio
-
-npx prisma migrate dev
-
 npx prisma generate
-
-"ngrok:dev": "ngrok http --url=sloppy-proterandrous-catherin.ngrok-free.dev 3000",
+npx prisma migrate dev
 
 First, run the development server:
 
