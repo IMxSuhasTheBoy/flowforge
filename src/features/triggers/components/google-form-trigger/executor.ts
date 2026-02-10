@@ -13,6 +13,7 @@ export const googleFormTriggerExecutor: NodeExecutor<
     })
   );
   const result = await step.run("google-form-trigger", async () => context);
+  // TODO: Publish an error status when execution fails. pr #20
 
   await publish(
     googleFormTriggerChannel().status({

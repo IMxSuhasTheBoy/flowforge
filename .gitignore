@@ -13,6 +13,8 @@
 # testing
 /coverage
 /ngrok.exe
+/ngrok
+/stripe.exe
 
 # next.js
 /.next/
