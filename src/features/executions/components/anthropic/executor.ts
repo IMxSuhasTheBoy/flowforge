@@ -14,7 +14,7 @@ Handlebars.registerHelper("json", (context) => {
 
 type AnthropicData = {
   variableName?: string;
-  systemPrompt?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  systemPrompt?: string;
   userPrompt?: string;
 };
 

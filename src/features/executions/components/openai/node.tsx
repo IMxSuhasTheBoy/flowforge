@@ -48,7 +48,9 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
 
   const nodeData = props.data;
   const description = nodeData?.userPrompt
-    ? `gpt-4: ${nodeData.userPrompt.slice(0, 50)}...`
+    ? `gpt-4: ${nodeData.userPrompt.slice(0, 50)}${
+        nodeData.userPrompt.length > 50 ? "..." : ""
+      }`
     : "Not configured";
 
   return (

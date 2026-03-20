@@ -14,7 +14,7 @@ Handlebars.registerHelper("json", (context) => {
 
 type GeminiData = {
   variableName?: string;
-  systemPrompt?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  systemPrompt?: string;
   userPrompt?: string;
 };
 
