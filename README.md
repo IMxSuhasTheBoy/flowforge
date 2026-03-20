@@ -5,8 +5,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 npx inngest-cli@latest dev
 
 npx prisma studio
-npx prisma generate
 npx prisma migrate dev
+npx prisma generate
+
+## stripe cli local listener
+
+stripe login
+
+stripe listen --forward-to "localhost:3000/api/webhooks/stripe?workflowId=...................."
+
+stripe trigger payment_intent.succeeded
 
 First, run the development server:
 
