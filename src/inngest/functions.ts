@@ -4,8 +4,10 @@ import { NodeType } from "@/generated/prisma/enums";
 import { getExecutor } from "@/features/executions/lib/executor-registry";
 import { inngest } from "./client";
 import { topologicalSort } from "./utils";
+import { slackChannel } from "./channels/slack";
 import { openAiChannel } from "./channels/openai";
 import { geminiChannel } from "./channels/gemini";
+import { discordChannel } from "./channels/discord";
 import { anthropicChannel } from "./channels/anthropic";
 import { httpRequestChannel } from "./channels/http-request";
 import { manualTriggerChannel } from "./channels/manual-trigger";
@@ -34,6 +36,8 @@ export const executeWorkflow = inngest.createFunction(
       geminiChannel(),
       openAiChannel(),
       anthropicChannel(),
+      discordChannel(),
+      slackChannel(),
     ],
   },
   async ({ event, step, publish }) => {
@@ -43,28 +47,36 @@ export const executeWorkflow = inngest.createFunction(
       throw new NonRetriableError("Workflow ID is missing");
     }
 
-    const sortedNodes = await step.run("prepare-workflow", async () => {
-      const workflow = await prisma.workflow.findUniqueOrThrow({
-        where: { id: workflowId },
-        include: {
-          nodes: true,
-          connections: true,
-        },
-      });
+    // const sortedNodes = await step.run("prepare-workflow", async () => {
+    const { sortedNodes, userId } = await step.run(
+      "prepare-workflow",
+      async () => {
+        const workflow = await prisma.workflow.findUniqueOrThrow({
+          where: { id: workflowId },
+          include: {
+            nodes: true,
+            connections: true,
+          },
+        });
 
-      return topologicalSort(workflow.nodes, workflow.connections);
-    });
+        // return topologicalSort(workflow.nodes, workflow.connections);
+        return {
+          sortedNodes: topologicalSort(workflow.nodes, workflow.connections),
+          userId: workflow.userId,
+        };
+      }
+    );
 
-    const userId = await step.run("find-user-id", async () => {
-      const workflow = await prisma.workflow.findUniqueOrThrow({
-        where: { id: workflowId },
-        select: {
-          userId: true,
-        },
-      });
+    // const userId = await step.run("find-user-id", async () => {
+    //   const workflow = await prisma.workflow.findUniqueOrThrow({
+    //     where: { id: workflowId },
+    //     select: {
+    //       userId: true,
+    //     },
+    //   });
 
-      return workflow.userId;
-    });
+    //   return workflow.userId;
+    // });
 
     // Initialize context with any initial data from the trigger
     let context = event.data.initialData || {};
