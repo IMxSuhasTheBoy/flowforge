@@ -1,6 +1,6 @@
-import { PrismaClient } from "@/generated/prisma/client";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@/generated/prisma/client";
 
 // standard behaviour: on hotreloads initialises new prisma instances
 // solution: global variable is unaffected by hotreloads, the below type ensures no new instances are created during hotreload
