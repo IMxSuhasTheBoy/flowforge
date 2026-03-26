@@ -27,7 +27,7 @@ const Page = async ({ params }: PageProps) => {
         <HydrateClient>
           <ErrorBoundary fallback={<CredentialsError />}>
             <Suspense fallback={<CredentialsLoading />}>
-              <CredentialView credentialId={credentialId} />;
+              <CredentialView credentialId={credentialId} />
             </Suspense>
           </ErrorBoundary>
         </HydrateClient>

@@ -90,6 +90,9 @@ model Credential {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   nodes Node[]
+
+  @@index([userId])
+  @@map("credential")
 }
 
 enum CredentialType {
@@ -120,6 +123,8 @@ enum NodeType {
   ANTHROPIC
   GEMINI
   OPENAI
+  DISCORD
+  SLACK
 }
 
 model Node {
@@ -139,7 +144,7 @@ model Node {
   updatedAt DateTime @updatedAt
 
   credentialId String?
-  credential   Credential? @relation(fields: [credentialId], references: [id])
+  credential   Credential? @relation(fields: [credentialId], references: [id], onDelete: SetNull)
 }
 
 model Connection {
