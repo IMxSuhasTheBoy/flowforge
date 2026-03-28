@@ -9,6 +9,7 @@ import { BaseExecutionNode } from "../base-execution-node";
 import { useNodeStatus } from "../../hooks/use-node-status";
 
 type SlackNodeData = {
+  variableName?: string;
   webhookUrl?: string;
   content?: string;
 };
@@ -47,7 +48,7 @@ export const SlackNode = memo((props: NodeProps<SlackNodeType>) => {
 
   const nodeData = props.data;
   const description = nodeData?.content
-    ? `slack-flash-lite-latest: ${nodeData.content.slice(0, 50)}${
+    ? `Send: ${nodeData.content.slice(0, 50)}${
         nodeData.content.length > 50 ? "..." : ""
       }`
     : "Not configured";

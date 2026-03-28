@@ -13,6 +13,12 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import {
   Empty,
   EmptyContent,
   EmptyDescription,
@@ -20,17 +26,11 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "./ui/empty";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 
 type EntityHeaderProps = {
   title: string;
   description?: string;
-  newButtonLable: string;
+  newButtonLabel?: string;
   disabled?: boolean;
   isCreating?: boolean;
 } & (
@@ -42,7 +42,7 @@ type EntityHeaderProps = {
 export const EntityHeader = ({
   title,
   description,
-  newButtonLable,
+  newButtonLabel,
   disabled,
   isCreating,
   onNew,
@@ -63,7 +63,7 @@ export const EntityHeader = ({
       {onNew && !newButtonHref && (
         <Button disabled={isCreating || disabled} size="sm" onClick={onNew}>
           <PlusIcon className="size-4" />
-          {newButtonLable}
+          {newButtonLabel}
         </Button>
       )}
 
@@ -71,7 +71,7 @@ export const EntityHeader = ({
         <Button size="sm" asChild>
           <Link href={newButtonHref} prefetch>
             <PlusIcon className="size-4" />
-            {newButtonLable}
+            {newButtonLabel}
           </Link>
         </Button>
       )}
