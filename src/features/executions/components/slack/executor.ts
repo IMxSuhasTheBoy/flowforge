@@ -42,10 +42,10 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
     throw new NonRetriableError("Slack node: Message content is required");
   }
 
-  const rawContent = Handlebars.compile(data.content)(context);
-  const content = decode(rawContent);
-
   try {
+    const rawContent = Handlebars.compile(data.content)(context);
+    const content = decode(rawContent);
+
     const result = await step.run("slack-webhook", async () => {
       if (!data.webhookUrl) {
         await publish(
@@ -57,12 +57,6 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
         throw new NonRetriableError("Slack node: Webhook URL is required");
       }
 
-      await ky.post(data.webhookUrl!, {
-        json: {
-          content: content, // The key depends on workflow config
-        },
-      });
-
       if (!data.variableName) {
         await publish(
           slackChannel().status({
@@ -72,6 +66,12 @@ export const slackExecutor: NodeExecutor<SlackData> = async ({
         );
         throw new NonRetriableError("Slack node: Variable name is missing");
       }
+
+      await ky.post(data.webhookUrl, {
+        json: {
+          content: content, // The key depends on workflow config
+        },
+      });
 
       return {
         ...context,

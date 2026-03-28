@@ -48,7 +48,7 @@ export const DiscordNode = memo((props: NodeProps<DiscordNodeType>) => {
 
   const nodeData = props.data;
   const description = nodeData?.content
-    ? `discord-flash-lite-latest: ${nodeData.content.slice(0, 50)}${
+    ? `Send: ${nodeData.content.slice(0, 50)}${
         nodeData.content.length > 50 ? "..." : ""
       }`
     : "Not configured";

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { Credential } from "@/generated/prisma/client";
+import type { Credential } from "@/generated/prisma/browser";
 import { CredentialType } from "@/generated/prisma/browser";
 import { useEntitySearch } from "@/hooks/use-entity-search";
 import { useCredentialsParams } from "../hooks/use-credentials-params";
@@ -57,7 +57,7 @@ export const CredentialsHeader = ({ disabled }: { disabled?: boolean }) => {
     <EntityHeader
       title="credentials"
       description="Create and manage your credentials"
-      newButtonLable="New credential"
+      newButtonLabel="New credential"
       newButtonHref="/credentials/new"
       disabled={disabled}
     />
