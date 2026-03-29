@@ -9,6 +9,7 @@ import { DiscordDialog, DiscordFormValues } from "./dialog";
 import { useNodeStatus } from "../../hooks/use-node-status";
 
 type DiscordNodeData = {
+  variableName?: string;
   webhookUrl?: string;
   content?: string;
   username?: string;

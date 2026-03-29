@@ -69,7 +69,7 @@ export const executionsRouter = createTRPCRouter({
         }),
       ]);
 
-      const totalPages = Math.ceil(totalCount / pageSize);
+      const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
       const hasNextPage = page < totalPages;
       const hasPreviousPage = page > 1;
 

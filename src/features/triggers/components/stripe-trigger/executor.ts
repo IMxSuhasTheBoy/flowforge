@@ -16,7 +16,7 @@ export const stripeTriggerExecutor: NodeExecutor<StripeTriggerData> = async ({
     })
   );
   const result = await step.run("stripe-trigger", async () => context);
-  // TODO: Publish an error status when execution fails. pr #20
+  // TODO:Publish an error status when execution fails. pr #20
 
   await publish(
     stripeTriggerChannel().status({
