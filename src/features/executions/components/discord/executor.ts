@@ -73,7 +73,7 @@ export const discordExecutor: NodeExecutor<DiscordData> = async ({
 
       await ky.post(data.webhookUrl, {
         json: {
-          content: content.slice(0, 2000), //Discord's max message length
+          content: content.slice(0, 2000), // Discord's max message length
           username,
         },
       });

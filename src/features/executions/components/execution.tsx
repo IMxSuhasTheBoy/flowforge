@@ -156,7 +156,7 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
           </div>
         )}
 
-        {execution.output && (
+        {execution.output !== null && execution.output !== undefined && (
           <div className="mt-4 p4 bg-muted rounded-md">
             <p className="text-sm font-medium mb-2">Output</p>
             <pre className="font-mono overflow-auto text-xs">
