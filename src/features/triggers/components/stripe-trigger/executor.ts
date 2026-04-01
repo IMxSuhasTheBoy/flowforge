@@ -15,15 +15,25 @@ export const stripeTriggerExecutor: NodeExecutor<StripeTriggerData> = async ({
       status: "loading",
     })
   );
-  const result = await step.run("stripe-trigger", async () => context);
-  // TODO:Publish an error status when execution fails. pr #20
 
-  await publish(
-    stripeTriggerChannel().status({
-      nodeId,
-      status: "success",
-    })
-  );
+  try {
+    const result = await step.run("stripe-trigger", async () => context);
 
-  return result;
+    await publish(
+      stripeTriggerChannel().status({
+        nodeId,
+        status: "success",
+      })
+    );
+
+    return result;
+  } catch (error) {
+    await publish(
+      stripeTriggerChannel().status({
+        nodeId,
+        status: "error",
+      })
+    );
+    throw error;
+  }
 };
