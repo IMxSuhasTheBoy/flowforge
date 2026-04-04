@@ -91,7 +91,7 @@ export const CredentialForm = ({ initialData }: CredentialFormProps) => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    console.log(values);
+    // console.log(values);
     if (isEdit && initialData?.id) {
       await updateCredential.mutateAsync({
         id: initialData.id,
